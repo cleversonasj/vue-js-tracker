@@ -41,8 +41,8 @@ export default defineComponent({
 
 .alerta span {
   font-family: Arial, sans-serif;
-  font-size: 18px;
-  color: #6A1B9A;
+  color: #000000;
+  text-align: center;
 }
 
 </style>

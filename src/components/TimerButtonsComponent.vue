@@ -2,7 +2,7 @@
   <div class="column">
     <CronometroComponent :timeInSeconds="timeInSeconds" />
     <div class="is-flex is-align-items-center is-justify-content-space-between">
-      <button class="button play-btn" :disabled="isbtnStartActive || errorMsg" @click="startTask">
+      <button type="button" class="button play-btn" :disabled="isbtnStartActive || errorMsg" @click="startTask">
         <span class="icon">
           <i class="fas fa-play"></i>
         </span>
@@ -21,7 +21,8 @@
         <span>Parar</span>
       </button>
     </div>
-    <p v-if="showAlert" class="alert">Informe uma tarefa com no mínimo 5 caracteres para iniciar!</p>
+    <p v-if="showAlert && quantity === 0 || quantity === 1" class="alert">A tarefa precisa ter no mínimo 5 e no máximo 60 caracteres. A descrição atual possui {{ quantity }} carácter.</p>
+    <p v-if="showAlert && quantity > 1" class="alert">A tarefa precisa ter no mínimo 5 e no máximo 60 caracteres. A descrição atual possui {{ quantity }} caracteres.</p>
   </div>
 </template>
 
@@ -43,6 +44,7 @@ export default defineComponent({
       stopwatch: 0,
       showAlert: false,
       errorMsg: false,
+      quantity: 0,
     };
   },
   props: {
@@ -62,6 +64,8 @@ export default defineComponent({
   },
   methods: {    
     startTask() {
+      this.quantity = this.value.length;
+
       if (!this.isValid) {
         this.showAlert = true;
         this.errorMsg = true;
@@ -69,6 +73,11 @@ export default defineComponent({
           this.showAlert = false;
           this.errorMsg = false;
         }, 3000);
+        return;
+      }
+
+      if (this.value.length > 60) {
+        this.showAlert = true;
         return;
       }
 
@@ -82,10 +91,11 @@ export default defineComponent({
         }, 1000);
       }
     },
-    pauseTask() {
+    pauseTask(e: Event) {
+      e.preventDefault();
       if (!this.isbtnStopActive) {
         this.isbtnStartActive = false;
-        this.isbtnStopActive = true;
+        this.isbtnStopActive = false;
         clearInterval(this.stopwatch);
       }
     },
@@ -180,8 +190,12 @@ export default defineComponent({
 .alert{
   color: #ec002f;
   font-weight: bold;
+  font-size: 12px;
   padding: 10px;
   margin: 10px;
+  text-align: center;
+  background-color: #fcd732;
+  border-radius: 5px;
 }
 
 
