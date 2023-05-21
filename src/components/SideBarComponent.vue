@@ -1,5 +1,6 @@
 <template>
   <div class="painel">
+    <h1>Temporizador de Tarefas</h1>
     <img src="../assets/logo.png" alt="Logo">
   </div>
 </template>
@@ -28,9 +29,16 @@ export default defineComponent({
 
   }
 
+  h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+  }
+
 
   img{
-    width: 80%;
+    width: 200px;
     transform: rotate(6.8deg);
   }
 

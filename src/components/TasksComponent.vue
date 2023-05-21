@@ -4,7 +4,7 @@
       <div class="columns">
         <div class="column is-10">
           <p>Descrição:</p>
-          <p class="black">{{ task.description || 'N/A'}}</p>
+          <p class="black column is-10">{{ task.description || 'N/A'}}</p>
         </div>
         <div class="column is-2">
           <p>Duração:</p>
@@ -47,10 +47,15 @@ p{
   font-size: 1rem;
   font-weight: bold;
   color: #6A1B9A;
+  margin: 0 auto;
 }
 
 .black{
   color: #000000;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: center;
 }
 
 h1{
